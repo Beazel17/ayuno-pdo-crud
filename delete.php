@@ -7,15 +7,15 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Prepare a delete statement
     $sql = "DELETE FROM employees WHERE id = ?";
     
-    if($stmt = mysqli_prepare($link, $sql)){
+    if($stmt = $mysqli->prepare($sql)){
         // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "i", $param_id);
+        $stmt->bind_param("i", $param_id);
         
         // Set parameters
         $param_id = trim($_POST["id"]);
         
         // Attempt to execute the prepared statement
-        if(mysqli_stmt_execute($stmt)){
+        if($stmt->execute()){
             // Records deleted successfully. Redirect to landing page
             header("location: index.php");
             exit();
@@ -25,10 +25,10 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     }
      
     // Close statement
-    mysqli_stmt_close($stmt);
+    $stmt->close();
     
     // Close connection
-    mysqli_close($link);
+    $mysqli->close();
 } else{
     // Check existence of id parameter
     if(empty(trim($_GET["id"]))){
@@ -64,7 +64,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                             <p>Are you sure you want to delete this employee record?</p>
                             <p>
                                 <input type="submit" value="Yes" class="btn btn-danger">
-                                <a href="index.php" class="btn btn-secondary">No</a>
+                                <a href="index.php" class="btn btn-secondary ml-2">No</a>
                             </p>
                         </div>
                     </form>
