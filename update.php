@@ -43,10 +43,10 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     if(empty($name_err) && empty($address_err) && empty($salary_err)){
         // Prepare an update statement
         $sql = "UPDATE employees SET name=?, address=?, salary=? WHERE id=?";
-         
-        if($stmt = mysqli_prepare($link, $sql)){
+ 
+        if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssi", $param_name, $param_address, $param_salary, $param_id);
+            $stmt->bind_param("sssi", $param_name, $param_address, $param_salary, $param_id);
             
             // Set parameters
             $param_name = $name;
@@ -55,7 +55,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             $param_id = $id;
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if($stmt->execute()){
                 // Records updated successfully. Redirect to landing page
                 header("location: index.php");
                 exit();
@@ -65,11 +65,11 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         }
          
         // Close statement
-        mysqli_stmt_close($stmt);
+        $stmt->close();
     }
     
     // Close connection
-    mysqli_close($link);
+    $mysqli->close();
 } else{
     // Check existence of id parameter before processing further
     if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
@@ -78,21 +78,21 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         
         // Prepare a select statement
         $sql = "SELECT * FROM employees WHERE id = ?";
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "i", $param_id);
+            $stmt->bind_param("i", $param_id);
             
             // Set parameters
             $param_id = $id;
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                $result = mysqli_stmt_get_result($stmt);
-    
-                if(mysqli_num_rows($result) == 1){
+            if($stmt->execute()){
+                $result = $stmt->get_result();
+                
+                if($result->num_rows == 1){
                     /* Fetch result row as an associative array. Since the result set
                     contains only one row, we don't need to use while loop */
-                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                    $row = $result->fetch_array(MYSQLI_ASSOC);
                     
                     // Retrieve individual field value
                     $name = $row["name"];
@@ -110,10 +110,10 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         }
         
         // Close statement
-        mysqli_stmt_close($stmt);
+        $stmt->close();
         
         // Close connection
-        mysqli_close($link);
+        $mysqli->close();
     }  else{
         // URL doesn't contain id parameter. Redirect to error page
         header("location: error.php");
@@ -122,7 +122,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 }
 ?>
  
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
