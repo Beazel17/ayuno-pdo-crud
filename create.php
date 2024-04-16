@@ -39,13 +39,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($name_err) && empty($address_err) && empty($salary_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO employees (name, address, salary) VALUES (:name, :address, :salary)";
- 
-        if($stmt = $pdo->prepare($sql)){
+        $sql = "INSERT INTO employees (name, address, salary) VALUES (?, ?, ?)";
+         
+        if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":name", $param_name);
-            $stmt->bindParam(":address", $param_address);
-            $stmt->bindParam(":salary", $param_salary);
+            mysqli_stmt_bind_param($stmt, "sss", $param_name, $param_address, $param_salary);
             
             // Set parameters
             $param_name = $name;
@@ -53,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_salary = $salary;
             
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
+            if(mysqli_stmt_execute($stmt)){
                 // Records created successfully. Redirect to landing page
                 header("location: index.php");
                 exit();
@@ -63,11 +61,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
          
         // Close statement
-        unset($stmt);
+        mysqli_stmt_close($stmt);
     }
     
     // Close connection
-    unset($pdo);
+    mysqli_close($link);
 }
 ?>
  
