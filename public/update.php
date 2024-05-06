@@ -10,7 +10,7 @@ $product_name_err = $product_details_err = $product_retail_price_err = "";
 if(isset($_POST["product_id"]) && !empty($_POST["product_id"])){
     // Get hidden input value
     $product_id = $_POST["product_id"];
-    
+     
     // Validate name
     $input_product_name = trim($_POST["product_name"]);
     if(empty($input_product_name)){

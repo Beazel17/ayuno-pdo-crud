@@ -10,7 +10,7 @@ if(isset($_GET["product_id"]) && !empty(trim($_GET["product_id"]))){
     if($stmt = $pdo->prepare($sql)){
         // Bind variables to the prepared statement as parameters
         $stmt->bindParam(":product_id", $param_product_id);
-        
+         
         // Set parameters
         $param_product_id = trim($_GET["product_id"]);
         

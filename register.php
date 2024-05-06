@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "config.php";
+require_once "./db/config.php";
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
@@ -10,8 +10,8 @@ $username_err = $password_err = $confirm_password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Validate username
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter a username.";
+    if(empty(trim($_POST["username"]))){ 
+        $username_err = "Please enter a username."; 
     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
         $username_err = "Username can only contain letters, numbers, and underscores.";
     } else{
@@ -128,7 +128,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+            <p>Already have an account? <a href="index.php">Login here</a>.</p>
         </form>
     </div>    
 </body>
