@@ -8,7 +8,7 @@ $product_name_err = $product_details_err = $product_retail_price_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    // Validate name
+    // Validate name 
     $input_name = trim($_POST["product_name"]);
     if(empty($input_name)){
         $product_name_err = "Please enter a name.";

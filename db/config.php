@@ -6,7 +6,7 @@ define('DB_NAME', 'u593341949_db_ayuno');
 define('DB_USERNAME', 'u593341949_dev_ayuno');
 define('DB_PASSWORD', '20221937Ayuno');
 */
-
+ 
 define('DB_SERVER', 'localhost');
 define('DB_NAME', 'brazil');
 define('DB_USERNAME', 'root');

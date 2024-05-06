@@ -37,11 +37,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         <h2 class="pull-left">Product Details</h2>
                         <a href="./public/create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Product</a>
                     </div>
-                    <?php
+                    <?php 
                     // Include config file
                     require_once "./db/config.php";
                     
-                    // Attempt select query execution
+                    // Attempt select query execution  
                     $sql = "SELECT * FROM products";
                     if($result = $pdo->query($sql)){
                         if($result->rowCount() > 0){

@@ -6,7 +6,7 @@ if(isset($_POST["product_id"]) && !empty($_POST["product_id"])){
     
     // Prepare a delete statement
     $sql = "DELETE FROM products WHERE product_id = :product_id";
-    
+     
     if($stmt = $pdo->prepare($sql)){
         // Bind variables to the prepared statement as parameters
         $stmt->bindParam(":product_id", $param_id);
