@@ -1,14 +1,14 @@
 <?php
 
 $host = 'localhost';
-$dbname = 's';
+$dbname = 'beazel';
 $username = 'root';
 $password = '';
 /*
 $host = 'localhost';
-$dbname = 'u593341949_db_quidit';
-$username = 'u593341949_dev_quidit';
-$password = '20212014Quidit';
+$dbname = 'u593341949_db_ayuno';
+$username = 'u593341949_dev_ayuno';
+$password = '20221937ayuno';
 */
 try {   
  $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
